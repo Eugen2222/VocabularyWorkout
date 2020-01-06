@@ -20,11 +20,13 @@ public class VController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == viewObject.getPick()) { //if spin button is clicked
 			modelObject.spinCard(); //model spins the cards
-			viewObject.pickWord(modelObject.getV()); 
+			viewObject.pickWord(modelObject.getV());
+			viewObject.setCount("Words left: "+modelObject.getRestOfWords());
 			viewObject.getAnswer().setEnabled(true);
 			viewObject.getNote().setEnabled(true);
 			viewObject.getExamNote().setEnabled(true);
 			if(modelObject.finish()) {
+				viewObject.setCount("");
 				viewObject.getPick().setEnabled(false);
 				viewObject.getAnswer().setEnabled(false);
 				viewObject.getNote().setEnabled(false);
@@ -45,12 +47,14 @@ public class VController implements ActionListener{
 		if (e.getSource() == viewObject.getExamNote()) {
 			if(modelObject.enableExamNote()) {
 				modelObject.spinCard();
+				viewObject.setCount("Words left: "+modelObject.getRestOfWords());
 				viewObject.pickWord(modelObject.getV());
 				viewObject.getPick().setEnabled(true);
 				viewObject.getAnswer().setEnabled(true);
 				viewObject.getNote().setEnabled(true);
 				viewObject.getExamNote().setEnabled(false);
 			}else {
+				viewObject.setCount("");
 				viewObject.pickWord(modelObject.getV());
 				viewObject.getPick().setEnabled(false);
 				viewObject.getAnswer().setEnabled(false);
@@ -63,12 +67,7 @@ public class VController implements ActionListener{
 		
 		if (e.getSource() == viewObject.getRestart()) {
 			modelObject.restart();
-			viewObject.pickWord("Welcome!!!");
-			viewObject.getPick().setEnabled(true);
-			viewObject.getAnswer().setEnabled(false);
-			viewObject.getNote().setEnabled(false);
-			viewObject.getExamNote().setEnabled(false);
-			
+			viewObject.restart();
 		}
 		
 		

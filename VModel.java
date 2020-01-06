@@ -13,16 +13,12 @@ public class VModel {
 	private ArrayList <String> aPool = new ArrayList <String>();//translation
 	private ArrayList <Integer> index =  new ArrayList <Integer>();
 	private ArrayList <Integer> noteIndex =  new ArrayList <Integer>();
-	private ArrayList <Integer> tempNote =  new ArrayList <Integer>();
-	private int noteSize = 0;
+	private ArrayList <Integer> tempNoteIndex =  new ArrayList <Integer>();
+	
 	private int currentIndex = 0;
 	private int restOfWords;
 	private boolean finishStatus = false;
 	private boolean examStatus = false;
-	//Create a player point.
-	private int point; 
-	//Create a String to store player's status.
-	//A constructor to default the game.
 	
 	public VModel(String path) {
 		file = new VArchive(path); //read file
@@ -42,7 +38,7 @@ public class VModel {
 			if(restOfWords == 0) {
 				v = "Finish exam!!!";
 				finishStatus = true;
-				noteIndex = tempNote;
+				noteIndex = tempNoteIndex;
 			}else {
 				while(!noteIndex.contains(pickIndex(vPool.size())));
 				v = vPool.get(currentIndex);
@@ -66,7 +62,6 @@ public class VModel {
 	public int pickIndex(int size) {
 		Random r = new Random();
 		currentIndex = r.nextInt(size);
-		System.out.println(currentIndex);
 		return currentIndex;
 	}
 	
@@ -82,12 +77,18 @@ public class VModel {
 		return finishStatus;
 	}
 	
+	public int getRestOfWords() {
+		return restOfWords;
+	}
+	
+	
+	
+	
 	public void setNote() {
 		if(examStatus==true) {
-			tempNote.add(currentIndex);
+			tempNoteIndex.add(currentIndex);
 		}else {
 			noteIndex.add(currentIndex);
-			System.out.print(currentIndex);
 		}
 
 	}
@@ -101,7 +102,6 @@ public class VModel {
 			finishStatus = false;
 			index.clear();
 			restOfWords = noteIndex.size();
-			noteSize = noteIndex.size();
 			return true;
 		}
 	}
@@ -112,7 +112,6 @@ public class VModel {
 		examStatus = false;
 		finishStatus = false;
 		restOfWords = vPool.size();
-		noteSize= 0;
 	}
 }
 

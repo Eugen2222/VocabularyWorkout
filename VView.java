@@ -76,12 +76,19 @@ public class VView extends JFrame {
 		return buttonPanel.getRestart();
 	}
 	
+	public void setCount(String text) {
+		wordPanel.setCount(text);
+	}
+	
+	
 	public void restart() {
+		setCount("");
 		pickWord("Welcome!!!");
 		getPick().setEnabled(true);
 		getAnswer().setEnabled(false);
 		getNote().setEnabled(false);
 		getExamNote().setEnabled(false);
+
 	}
 }
 
